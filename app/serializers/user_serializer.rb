@@ -4,7 +4,6 @@ class UserSerializer < ActiveModel::Serializer
   belongs_to :meta, polymorphic: true
 
   def authentication_token?
-  	byebug
   	true if object.auth_token 
   end
 
