@@ -27,3 +27,5 @@ on_worker_boot do
   ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
   ActiveRecord::Base.establish_connection(YAML.load_file("/home/webuser/linkdot_api/config/database.yml")[rails_env])
 end
+
+#sudo -u nginx test -w /home/webuser/linkdot_api/config/shared/sockets/puma.sock && echo True
