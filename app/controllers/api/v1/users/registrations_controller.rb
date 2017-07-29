@@ -6,7 +6,6 @@ module Api
         skip_before_action :require_login!, only: [:create]
 
         def create 
-          byebug
           organizer = new_organizer
           new_user = organizer.build_user(email: params[:user][:email],password: params[:user][:password],meta: organizer)
           if new_user.save
