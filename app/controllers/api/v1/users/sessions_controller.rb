@@ -6,7 +6,7 @@ module Api
         before_action :sign_in_params, only: [:create]
         skip_before_action :require_login!, only: [:create]
 
-        def create 
+        def create
           user = User.find_by_email(sign_in_params[:email])
           if user.valid_password?(sign_in_params[:password])
             auth_token = user.generate_auth_token
@@ -16,7 +16,7 @@ module Api
           end
         end
 
-        def destroy 
+        def destroy
           resource = current_user
           resource.invalidate_auth_token
           render json: 'Sign Out Successfully.'

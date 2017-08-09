@@ -5,8 +5,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable
   belongs_to :meta, polymorphic: true
-  validates :email, uniqueness: true
-  
+	has_one :picture, as: :imageable,dependent: :destroy
+
+	validates :email, uniqueness: true, presence: true
+	validates :password, presence: true
+
   def valid_password?(password)
   	return false if encrypted_password.blank?
   	# Given an encrypted password it will return a valid hash
@@ -26,7 +29,7 @@ class User < ApplicationRecord
   end
 
   def invalidate_auth_token
-  	self.update_columns(auth_token: nil,auth_token_created_at: nil) 
+  	self.update_columns(auth_token: nil,auth_token_created_at: nil)
   end
 
   def set_reset_password_token

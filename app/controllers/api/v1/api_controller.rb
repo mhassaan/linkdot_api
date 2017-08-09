@@ -17,7 +17,7 @@ module Api
 			@current_user ||=authenticate_token
 		end
 
-		private 
+		private
 			def authenticate_token
 				authenticate_with_http_token do |token, options|
 					User.where(auth_token: token).where("auth_token_created_at >= ?",1.hour.ago).first
@@ -25,5 +25,4 @@ module Api
 			end
 		end
 	end
-end		
-
+end
