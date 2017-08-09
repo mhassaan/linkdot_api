@@ -1,11 +1,32 @@
-threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }
-threads threads_count, threads_count
+# Change to match your CPU core count
+workers 2
 
-# Specifies the `port` that Puma will listen on to receive requests; default is 3000.
-port        ENV.fetch("PORT") { 3000 }
+# Min and Max threads per worker
+threads 1, 6
 
-# Specifies the `environment` that Puma will run in.
-environment ENV.fetch("RAILS_ENV") { "development" }
+app_dir = File.expand_path("../", __FILE__)
+shared_dir = "#{app_dir}/shared"
 
-# Allow puma to be restarted by `rails restart` command.
-plugin :tmp_restart
+# Default to production
+rails_env = ENV['RAILS_ENV'] || "production"
+environment rails_env
+
+# Set up socket location
+#bind "unix://#{shared_dir}/sockets/puma.sock"
+bind "unix:///home/webuser/linkdot_api/shared/sockets/puma.sock"
+
+# Logging
+stdout_redirect "/home/webuser/linkdot_api/shared/log/puma.stdout.log", "/home/webuser/linkdot_api/shared/log/puma.stderr.log", true
+
+# Set master PID and state locations
+pidfile "/home/webuser/linkdot_api/shared/pids/puma.pid"
+state_path "/home/webuser/linkdot_api/shared/pids/puma.state"
+activate_control_app
+
+on_worker_boot do
+  require "active_record"
+  ActiveRecord::Base.connection.disconnect! rescue ActiveRecord::ConnectionNotEstablished
+  ActiveRecord::Base.establish_connection(YAML.load_file("/home/webuser/linkdot_api/config/database.yml")[rails_env])
+end
+
+#sudo -u nginx test -w /home/webuser/linkdot_api/config/shared/sockets/puma.sock && echo True
