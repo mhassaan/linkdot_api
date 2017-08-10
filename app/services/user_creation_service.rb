@@ -30,12 +30,8 @@ class UserCreationService
 		@params.permit(:first_name,:last_name)
 	end
 
-	def new_organizer
-		Organizer.new(organizer_params)
-	end
-
 	def create_organizer
-		new_organizer
+		Organizer.new(organizer_params)
 	end
 
 	def create_user
