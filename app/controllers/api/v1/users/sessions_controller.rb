@@ -30,7 +30,7 @@ module Api
         end
 
         def sign_in_params
-          params.permit(:email,:password)
+          params.require(:user).permit(:email,:password)
         end
 
         def invalid_login_attempt

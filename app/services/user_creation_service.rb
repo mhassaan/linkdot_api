@@ -27,7 +27,7 @@ class UserCreationService
 	private
 
 	def organizer_params
-		@params.permit(:first_name,:last_name)
+		@params.require(:organizer).permit(:first_name,:last_name)
 	end
 
 	def new_organizer
@@ -39,11 +39,11 @@ class UserCreationService
 	end
 
 	def create_user
-		@organizer.build_user(email: @params[:email],password: @params[:password],meta: @organizer)
+		@organizer.build_user(email: @params[:user][:email],password: @params[:user][:password],meta: @organizer)
 	end
 
 	def create_picture
-		@new_user.build_picture(avatar: @params[:avatar],imageable: @new_user)
+		@new_user.build_picture(avatar: @params[:picture][:avatar],imageable: @new_user)
 	end
 
 
