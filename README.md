@@ -1,9 +1,8 @@
-# README
+# API Documentation
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This documentation intends to give an overview of the Apis endpoints and the appropriate way to consume them using any client.
 
-Things you may want to cover:
+We target to develop Api's for the following features in our project. Of course, we will be adding more as we move along with the scope of the project.
 
 * Ruby version
 
