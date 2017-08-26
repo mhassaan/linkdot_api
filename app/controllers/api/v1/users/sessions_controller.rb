@@ -24,9 +24,11 @@ module Api
         end
 
         def destroy
-          resource = current_user
-          resource.invalidate_auth_token
-          render json: 'Sign Out Successfully.'
+					# Returns an Array of [String, Hash] if a token is present. Returns nil if no token is found.
+					user_token = ActionController::HttpAuthentication::Token.token_and_options(request)[0]
+					user = User.where(auth_token: user_token).first
+          user.invalidate_auth_token
+          render json: {detail:'Sign Out Successfully.'}
         end
 
         def sign_in_params

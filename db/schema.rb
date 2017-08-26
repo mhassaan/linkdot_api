@@ -10,7 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170808131844) do
+ActiveRecord::Schema.define(version: 20170815152132) do
+
+  create_table "event_taggings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "event_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_event_taggings_on_event_id"
+    t.index ["tag_id"], name: "index_event_taggings_on_tag_id"
+  end
+
+  create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.text "description"
+    t.time "start_time"
+    t.time "end_time"
+    t.date "start_date"
+    t.date "end_date"
+  end
 
   create_table "organizers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "created_at", null: false
@@ -28,6 +52,21 @@ ActiveRecord::Schema.define(version: 20170808131844) do
     t.datetime "avatar_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+  end
+
+  create_table "user_taggings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_user_taggings_on_tag_id"
+    t.index ["user_id"], name: "index_user_taggings_on_user_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -52,4 +91,8 @@ ActiveRecord::Schema.define(version: 20170808131844) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "event_taggings", "events"
+  add_foreign_key "event_taggings", "tags"
+  add_foreign_key "user_taggings", "tags"
+  add_foreign_key "user_taggings", "users"
 end

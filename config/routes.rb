@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   # scope '/api/v1' do
   #   devise_for :users, :controllers => { :passwords => 'api/v1/users/passwords' }
   # end
-  scope module: :api,defaults:{format: :json} do 
-  	scope module: :v1 do 
-  		scope module: :users do 
+  scope module: :api,defaults:{format: :json} do
+  	scope module: :v1 do
+  		scope module: :users do
   			post "users/sign_in" => "sessions#create"
   			post "users/sign_up" => "registrations#create"
   			delete "users/sign_out" => "sessions#destroy"
@@ -14,6 +14,14 @@ Rails.application.routes.draw do
   			get "users/password/edit" => "passwords#edit"
   			put "users/password/update" => "passwords#update"
   		end
+
+			scope module: :tags do
+				resources :tags
+			end
+
+			scope module: :events do
+				resources :events
+			end
   	end
   end
 end
