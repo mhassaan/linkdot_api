@@ -8,9 +8,7 @@ class EventService
 	end
 
 	def self.get_all_events
-		#events = Event.all.where('start_date != nil')
 		events = Event.find_by_sql("SELECT * from `events` where start_date IS NOT NULL and end_date IS NOT NULL and start_time IS NOT NULL and end_time IS NOT NULL")
-		#events = Event
 	end
 
 	def create_event!
