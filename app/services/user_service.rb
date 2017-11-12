@@ -9,7 +9,9 @@ class UserService
 		error_messages = {}
 		@new_user = create_user
 		@user_pic = create_picture
-		@user_interests = create_user_interests
+		if params[:tag_ids].present?
+			@user_interests = create_user_interests
+		end
 		if @new_user.valid? && @user_pic.valid?
 			@new_user.save
 			@new_user

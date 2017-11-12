@@ -8,19 +8,12 @@ module Api
 
         def create
           user = User.find_by_email(sign_in_params[:email])
-
-					if user.present?
-						if user.valid_password?(sign_in_params[:password])
-	            auth_token = user.generate_auth_token
-	            render json: user
-	          else
-							invalid_login_attempt
-	          end
-					else
-						account_does_not_exist
-					end
-
-
+          if user.present? && user.valid_password?(sign_in_params[:password])
+            auth_token = user.generate_auth_token
+            render json: user
+          else
+            invalid_login_attempt
+          end
         end
 
         def destroy
