@@ -31,7 +31,7 @@ class UserService
 
 	def user_params
 		# Receiving user params in `user` param key.
-		params.require(:user).permit(:email,:password)
+		params.require(:user).permit(:email,:password,:first_name,:last_name)
 	end
 
 	def tag_params

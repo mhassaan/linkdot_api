@@ -1,9 +1,9 @@
 class UserSerializer < ActiveModel::Serializer
 
-  attributes :id, :email
+  attributes :id, :email, :first_name, :last_name
   attribute :authentication_token, if: :authentication_token
   #belongs_to :meta, polymorphic: true
-	
+
 	has_one :picture, as: :imageable,dependent: :destroy
 	has_many :tags, through: :user_taggings
 

@@ -5,6 +5,7 @@ module Api
         skip_before_action :require_login!, only: [:create]
 
         def create
+          puts params
 					if params[:picture].present?
 						user = UserService.new(params).create_user!
 						render json: user
