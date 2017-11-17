@@ -16,6 +16,17 @@ module Api
           end
         end
 
+        def update
+      		user = User.find_by_email(sign_in_params[:email])
+          if user.present?
+            user = UserService.new(params).update_user!(user)
+            render json: user
+          else
+            account_does_not_exist
+          end
+
+        end
+
         def destroy
 					# Returns an Array of [String, Hash] if a token is present. Returns nil if no token is found.
 					user_token = ActionController::HttpAuthentication::Token.token_and_options(request)[0]

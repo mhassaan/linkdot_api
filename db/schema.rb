@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171114153928) do
+ActiveRecord::Schema.define(version: 20171116173608) do
 
   create_table "event_taggings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "event_id"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20171114153928) do
     t.string "auth_token_created_at"
     t.string "first_name"
     t.string "last_name"
+    t.string "current_password"
     t.index ["auth_token", "auth_token_created_at"], name: "index_users_on_auth_token_and_auth_token_created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   	scope module: :v1 do
   		scope module: :users do
   			post "users/sign_in" => "sessions#create"
+        put "users/update" => "sessions#update"
   			post "users/sign_up" => "registrations#create"
   			delete "users/sign_out" => "sessions#destroy"
   			post "users/password" => "passwords#create"

@@ -1,4 +1,5 @@
-class User < ApplicationRecord
+
+	class User < ApplicationRecord
 	require 'bcrypt'
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -8,11 +9,13 @@ class User < ApplicationRecord
 	has_one :picture, as: :imageable,dependent: :destroy
 
 	validates :email, uniqueness: true, presence: true
-	validates :password, presence: true
+	validates :password, presence: true,:on => :create
+	#validates :password,length: { minimum: 8 }
 
 	has_many :user_taggings,dependent: :destroy
 	has_many :tags, through: :user_taggings
-
+	#validates_confirmation_of :password
+	#validates_presence_of :password_confirmation
   def valid_password?(password)
   	return false if encrypted_password.blank?
   	# Given an encrypted password it will return a valid hash

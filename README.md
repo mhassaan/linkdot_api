@@ -136,6 +136,37 @@ We target to develop Api's for the following features in our project. Of course,
   Parameter | Presence | Description
   --- | --- | ---- |
   token | required | Sing in user's token.
+  user[email] | required | User email address.
+  user[password] | optional | User password.
+  user[first_name] | optional | User first name.
+  user[last_name] | optional | User last name.
+  picture[avatar] | optional | Picture of the user.
+  tag_ids[0] | optional | Array of tag ids, that represent user interest.
+
+  ### Curl Request
+
+  `curl -X DELETE -H "Authorization: Token token=TOKEN OF SIGN IN USER" http://localhost:3000/users/update`
+
+  The above command returns a response like this.
+
+  ```
+  {"detail":"Sign Out Successfully."}
+
+  ```
+
++ **Update User:**
+
+  This endpoint updates user's attributes.
+
+  ### HTTP Request
+
+  `DELETE http://localhost:3000/users/update`
+
+  ### Request Parameters
+
+  Parameter | Presence | Description
+  --- | --- | ---- |
+  token | required | Sign in user's token.
 
   ### Curl Request
 
@@ -147,7 +178,6 @@ We target to develop Api's for the following features in our project. Of course,
   {"detail":"Sign Out Successfully."}
 
   ```
-
 
 + **Events:**
 
