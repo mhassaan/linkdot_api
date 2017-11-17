@@ -25,26 +25,11 @@ class UserService
 		end
 	end
 
-	# def update_user!(user)
-	# 	error_messages = {}
-	# 	user_updated = user.update_attributes(user_params) if params[:user].present?
-	# 	pic_updated = user.picture.update_attributes(picture_params) if params[:picture].present?
-	# 	interests_updated = update_user_interests(user) if params[:tag_ids].present?
-  #
-	# 	if user.errors.present? || user.picture.errors.present?
-	# 		error_messages[user.class.name] = user.errors.full_messages if user.errors.present?
-	# 		error_messages[user.picture.class.name] = user.picture.errors.full_messages if user.picture.errors.present?
-	# 		{'errors' => error_messages }
-	# 	else
-	# 		user.save
-	# 		user
-	# 	end
-	# end
 
 	def update_user!(user)
 		error_messages = {}
-
 		user_updated = user.update_attributes(update_user_params) if params[:user].present?
+
 		if update_user_params[:password].blank?
       update_user_params.delete(:password)
       update_user_params.delete(:password_confirmation) if update_user_params[:password_confirmation].blank?
@@ -59,7 +44,7 @@ class UserService
 				end
 			end
     end
-
+		
 		user_pic = user.build_picture(avatar: params[:picture][:avatar],imageable: user) if params[:picture].present?
 		interests_updated = update_user_interests(user) if params[:tag_ids].present?
 		if user_pic.present?
@@ -78,7 +63,6 @@ class UserService
 			user.save!
 			user
 		end
-
 	end
 
 	private
@@ -90,7 +74,7 @@ class UserService
 
 	def update_user_params
 		# Receiving user params in `user` param key.
-		params.require(:user).permit(:email,:password,:first_name,:last_name,:password_confirmation,:current_password)
+		params.require(:user).permit(:email,:password,:first_name,:last_name,:password_confirmation)
 	end
 
 	def tag_params
