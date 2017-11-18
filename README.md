@@ -160,22 +160,41 @@ We target to develop Api's for the following features in our project. Of course,
 
   ### HTTP Request
 
-  `DELETE http://localhost:3000/users/update`
+  `PUT http://localhost:3000/users/update`
 
   ### Request Parameters
 
   Parameter | Presence | Description
   --- | --- | ---- |
   token | required | Sign in user's token.
-
+  user[email] | required | Sign in user's email
+  user[password] | optional | Sign in user's password
+  user[password_confirmation] | optional | Sign in user's password confirmation
+  user[picture] | optional | Sign in user's picture.
+  user[first_name] | optional | Sign in user's first name.
+  user[last_name] | optional | Sign in user's last name.
+  tag_ids[] | optional | Array of tag ids, that represent user interest. Tags that are passed to this api will be removed from user's interest.
   ### Curl Request
 
-  `curl -X DELETE -H "Authorization: Token token=TOKEN OF SIGN IN USER" http://localhost:3000/users/sign_out`
+  `curl -X PUT -H "Authorization: Token token=TOKEN OF SIGN IN USER" -F "user[email]=email" -F "user[first_name]=f_name" http://localhost:3000/users/update`
 
   The above command returns a response like this.
 
   ```
-  {"detail":"Sign Out Successfully."}
+    {
+      "user": {
+          "id": 1,
+          "email": "gori@mail.com",
+          "first_name": "Jesse",
+          "last_name": "Wright",
+          "authentication_token": "z971Maay1KdibLRStBBB",
+          "picture": {
+              "id": 75,
+              "image": "http://localhost:3000/system/pictures/avatars/000/000/051/original/ns.jpg?1503684916"
+          },
+          "tags": []
+      }
+    }
 
   ```
 

@@ -44,7 +44,7 @@ class UserService
 				end
 			end
     end
-		
+
 		user_pic = user.build_picture(avatar: params[:picture][:avatar],imageable: user) if params[:picture].present?
 		interests_updated = update_user_interests(user) if params[:tag_ids].present?
 		if user_pic.present?
