@@ -170,7 +170,7 @@ We target to develop Api's for the following features in our project. Of course,
   user[email] | required | Sign in user's email
   user[password] | optional | Sign in user's password
   user[password_confirmation] | optional | Sign in user's password confirmation
-  user[picture] | optional | Sign in user's picture.
+  picture[avatar] | optional | Sign in user's picture.
   user[first_name] | optional | Sign in user's first name.
   user[last_name] | optional | Sign in user's last name.
   tag_ids[] | optional | Array of tag ids, that represent user interest. Tags that are passed to this api will be removed from user's interest.
